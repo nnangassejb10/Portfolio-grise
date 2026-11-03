@@ -24,6 +24,17 @@
   --mono:'JetBrains Mono', ui-monospace, monospace;
   --pad:clamp(20px,5vw,72px);
 }
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#121212;
+  --paper-2:#1d1d1d;
+  --card:#1a1a1a;
+  --ink:#f4f1ea;
+  --ink-2:#c8c3ba;
+  --ink-3:#989187;
+  --line:#393632;
+  --accent-soft:#39211d;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -44,6 +55,9 @@ a{color:inherit;text-decoration:none}
 .nav ul a:hover{color:var(--ink);background:var(--paper-2)}
 .nav ul a.active{color:var(--paper);background:var(--ink)}
 .nav-cta{font-size:14px;padding:10px 18px;border-radius:99px;background:var(--accent);color:#fff;font-weight:500}
+.theme-toggle{font:inherit;font-size:13px;padding:9px 14px;border:0;border-radius:99px;background:var(--accent);color:#fff;font-weight:500;cursor:pointer;transition:opacity .2s}
+.theme-toggle:hover{opacity:.85}
+.theme-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .burger{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer;position:relative}
 .burger span{position:absolute;left:13px;right:13px;height:1.5px;background:var(--ink);transition:.3s}
 .burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:25px}
@@ -103,9 +117,12 @@ section.block{padding:clamp(80px,12vw,160px) 0}
 .focus p{font-size:15px;color:var(--ink-2)}
 
 /* SKILLS */
-.dark{background:var(--ink);color:var(--paper)}
+.dark{background:#1b1916;color:#f4f1ea}
 .dark .sec-head h2 em{color:#7d776d}
 .dark .sec-head .mono{color:oklch(0.72 0.17 0)}
+:root[data-theme="dark"] .dark{background:#1f1d1a;color:#f4f1ea}
+:root[data-theme="dark"] .dark .sec-head h2 em{color:#aaa49a}
+:root[data-theme="dark"] .dark .chip:hover{background:#f4f1ea;color:#1b1916;border-color:#f4f1ea}
 .skills{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #3a3631}
 .skill-col{padding:32px 32px 32px 0;border-right:1px solid #3a3631}
 .skill-col:not(:first-child){padding-left:32px}
@@ -118,7 +135,12 @@ section.block{padding:clamp(80px,12vw,160px) 0}
 .certs{margin-top:72px;display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
 .certs .mono{color:#8f897e;padding-top:8px}
 .cert-row{display:flex;gap:24px;flex-wrap:wrap}
-.cert-row .badge{background:var(--paper);border-radius:14px;padding:10px;min-width:170px;min-height:290px;display:flex;align-items:center;justify-content:center}
+.cert-row .badge{background:var(--paper);color:#1b1916;border:1px solid var(--line);border-radius:14px;padding:20px 16px;min-width:190px;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;transition:transform .2s,border-color .2s}
+.cert-row .badge:hover{transform:translateY(-4px);border-color:var(--accent)}
+.cert-row .badge img{width:120px;height:120px;object-fit:contain}
+.cert-row .badge strong{font-size:15px;line-height:1.3}
+.cert-row .badge span{font-size:12px;color:#625d55}
+.cert-row .badge .badge-link{font-size:12px;color:var(--accent);font-weight:500}
 
 /* PROJECTS */
 .featured{display:grid;gap:clamp(64px,8vw,120px)}
@@ -233,6 +255,7 @@ footer img{height:22px}
 </style>
 </head>
 <body>
+  <canvas id="bg-3d" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; background-color: var(--paper);"></canvas>
 
 <nav class="nav" id="nav">
   <div class="wrap">
@@ -245,6 +268,7 @@ footer img{height:22px}
       <li><a href="#formations">Formations</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Me contacter</a>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Activer le mode sombre" aria-pressed="false">Mode sombre</button>
     <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
   </div>
 </nav>
@@ -313,8 +337,18 @@ footer img{height:22px}
     <div class="certs rv">
       <span class="mono">Certifications · Credly</span>
       <div class="cert-row">
-        <div class="badge"><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="665cf480-4e10-4606-941a-56912a5b1b70" data-share-badge-host="https://www.credly.com"></div></div>
-        <div class="badge"><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="1d44bcd7-3002-4174-9d68-a7264a80ba81" data-share-badge-host="https://www.credly.com"></div></div>
+        <a class="badge" href="https://www.credly.com/badges/665cf480-4e10-4606-941a-56912a5b1b70/public_url" target="_blank" rel="noopener noreferrer" aria-label="Voir le certificat Computer Hardware Basics sur Credly">
+          <img src="https://images.credly.com/images/19e742ef-13be-4d26-87ed-ac8f5fd0643c/image.png" alt="Badge Computer Hardware Basics de Cisco" loading="lazy">
+          <strong>Computer Hardware Basics</strong>
+          <span>Cisco</span>
+          <span class="badge-link">Voir le certificat ↗</span>
+        </a>
+        <a class="badge" href="https://www.credly.com/badges/1d44bcd7-3002-4174-9d68-a7264a80ba81/public_url" target="_blank" rel="noopener noreferrer" aria-label="Voir le certificat Introduction to Cybersecurity sur Credly">
+          <img src="https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png" alt="Badge Introduction to Cybersecurity de Cisco" loading="lazy">
+          <strong>Introduction to Cybersecurity</strong>
+          <span>Cisco</span>
+          <span class="badge-link">Voir le certificat ↗</span>
+        </a>
       </div>
     </div>
   </div>
@@ -429,10 +463,17 @@ footer img{height:22px}
     </footer>
   </div>
 </section>
-
-<script src="https://cdn.credly.com/assets/utilities/embed.js" async></script>
+ <script type="module" src="script.js"></script>
 <script>
 const nav=document.getElementById('nav'),menu=document.getElementById('menu'),burger=document.getElementById('burger');
+const themeToggle=document.getElementById('theme-toggle');
+themeToggle.onclick=()=>{
+  const isDark=document.documentElement.dataset.theme!=='dark';
+  document.documentElement.dataset.theme=isDark?'dark':'light';
+  themeToggle.textContent=isDark?'Mode clair':'Mode sombre';
+  themeToggle.setAttribute('aria-label',isDark?'Activer le mode clair':'Activer le mode sombre');
+  themeToggle.setAttribute('aria-pressed',String(isDark));
+};
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
 burger.onclick=()=>{burger.classList.toggle('open');menu.classList.toggle('open')};
 menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{burger.classList.remove('open');menu.classList.remove('open')});
