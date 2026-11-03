@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gloire JB NNANG — Informaticien · Développeur & Sécurité</title>
+<meta name="description" content="Informaticien junior basé à Libreville : développement logiciel, santé numérique, analyse de données et cybersécurité.">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f1ea;
+  --paper-2:#ebe6db;
+  --card:#faf8f3;
+  --ink:#1b1916;
+  --ink-2:#4a463f;
+  --ink-3:#8a847a;
+  --line:#d9d3c6;
+  --accent:oklch(0.56 0.2 0);
+  --accent-soft:oklch(0.93 0.04 0);
+  --serif:'Instrument Serif', Georgia, serif;
+  --sans:'Geist', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:color-mix(in oklab,var(--paper) 88%,transparent);backdrop-filter:blur(12px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--serif);font-size:26px;line-height:1}
+.logo i{color:var(--accent)}
+.nav ul{display:flex;gap:4px;list-style:none}
+.nav ul a{display:block;padding:8px 14px;border-radius:99px;font-size:14px;color:var(--ink-2);transition:.2s}
+.nav ul a:hover{color:var(--ink);background:var(--paper-2)}
+.nav ul a.active{color:var(--paper);background:var(--ink)}
+.nav-cta{font-size:14px;padding:10px 18px;border-radius:99px;background:var(--accent);color:#fff;font-weight:500}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer;position:relative}
+.burger span{position:absolute;left:13px;right:13px;height:1.5px;background:var(--ink);transition:.3s}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:25px}
+.burger.open span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger.open span:nth-child(2){top:21px;transform:rotate(-45deg)}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:110px;display:flex;flex-direction:column}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:end;flex:1}
+.status{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 10px;border:1px solid var(--line);border-radius:99px;font-size:13px;color:var(--ink-2);background:var(--card)}
+.status b{width:8px;height:8px;border-radius:50%;background:oklch(0.65 0.16 150);box-shadow:0 0 0 4px oklch(0.65 0.16 150 / .2);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px oklch(0.65 0.16 150 / 0)}}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,11vw,176px);line-height:.86;letter-spacing:-.02em;margin:28px 0 32px}
+.hero h1 em{color:var(--accent)}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:block;transform:translateY(105%);animation:rise 1s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 .ln:nth-child(2) span{animation-delay:.12s}
+@keyframes rise{to{transform:none}}
+.lede{font-size:clamp(18px,1.6vw,22px);line-height:1.5;color:var(--ink-2);max-width:560px;text-wrap:pretty}
+.lede strong{color:var(--ink);font-weight:500}
+.hero-actions{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:99px;font-size:15px;font-weight:500;transition:.25s;border:1px solid var(--ink)}
+.btn-dark{background:var(--ink);color:var(--paper)}
+.btn-dark:hover{background:var(--accent);border-color:var(--accent)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+.portrait{position:relative;align-self:stretch;display:flex;align-items:flex-end;justify-content:center}
+.portrait::before{content:"";position:absolute;bottom:0;left:8%;right:8%;height:78%;border-radius:999px 999px 0 0;background:var(--paper-2)}
+.portrait img{position:relative;width:100%;max-width:460px;mix-blend-mode:multiply;filter:contrast(1.03)}
+.portrait .tag{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:8px;white-space:nowrap}
+.portrait .t1{top:30%;left:-4%}
+.portrait .t2{top:52%;right:-2%}
+.hero-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);margin-top:0}
+.hero-foot div{padding:20px 0;border-right:1px solid var(--line);padding-right:20px}
+.hero-foot div:not(:first-child){padding-left:20px}
+.hero-foot div:last-child{border:0}
+.hero-foot .mono{color:var(--ink-3);display:block;margin-bottom:6px}
+.hero-foot p{font-size:15px;line-height:1.35}
+
+/* SECTIONS */
+section.block{padding:clamp(80px,12vw,160px) 0}
+.sec-head{display:grid;grid-template-columns:200px 1fr;gap:40px;margin-bottom:64px;align-items:baseline}
+.sec-head .mono{color:var(--accent)}
+.sec-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6vw,88px);line-height:.95;letter-spacing:-.015em}
+.sec-head h2 em{color:var(--ink-3)}
+.indent{margin-left:240px}
+
+/* ABOUT */
+.about-text{font-family:var(--serif);font-size:clamp(28px,3.2vw,46px);line-height:1.18;max-width:1000px;text-wrap:pretty}
+.about-text em{color:var(--accent)}
+.about-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:56px;max-width:1000px;color:var(--ink-2)}
+.focus{display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:1px solid var(--line)}
+.focus div{padding:28px 24px 0 0}
+.focus .n{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.focus h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.05;margin:14px 0 10px}
+.focus p{font-size:15px;color:var(--ink-2)}
+
+/* SKILLS */
+.dark{background:var(--ink);color:var(--paper)}
+.dark .sec-head h2 em{color:#7d776d}
+.dark .sec-head .mono{color:oklch(0.72 0.17 0)}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #3a3631}
+.skill-col{padding:32px 32px 32px 0;border-right:1px solid #3a3631}
+.skill-col:not(:first-child){padding-left:32px}
+.skill-col:last-child{border:0}
+.skill-col .mono{color:#8f897e}
+.skill-col h3{font-family:var(--serif);font-weight:400;font-size:34px;margin:10px 0 24px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 14px;border:1px solid #3a3631;border-radius:99px;font-size:14px;transition:.2s}
+.chip:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.certs{margin-top:72px;display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:start}
+.certs .mono{color:#8f897e;padding-top:8px}
+.cert-row{display:flex;gap:24px;flex-wrap:wrap}
+.cert-row .badge{background:var(--paper);border-radius:14px;padding:10px;min-width:170px;min-height:290px;display:flex;align-items:center;justify-content:center}
+
+/* PROJECTS */
+.featured{display:grid;gap:clamp(64px,8vw,120px)}
+.feat{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(32px,4vw,64px);align-items:center}
+.feat:nth-child(even){grid-template-columns:1fr 1.4fr}
+.feat:nth-child(even) .shot{order:2}
+.shot{position:relative;border-radius:16px;overflow:hidden;background:var(--paper-2);aspect-ratio:16/10;border:1px solid var(--line);display:block}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.shot:hover img{transform:scale(1.04)}
+.shot .visit{position:absolute;right:16px;bottom:16px;background:var(--ink);color:var(--paper);font-size:13px;padding:10px 16px;border-radius:99px;opacity:0;transform:translateY(8px);transition:.3s}
+.shot:hover .visit{opacity:1;transform:none}
+.feat .idx{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.feat h3{font-family:var(--serif);font-weight:400;font-size:clamp(38px,4vw,60px);line-height:1;margin:14px 0 18px}
+.feat p{color:var(--ink-2);max-width:440px;text-wrap:pretty}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px}
+.stack span{font-family:var(--mono);font-size:11px;padding:5px 10px;border-radius:6px;background:var(--paper-2);color:var(--ink-2)}
+.link{display:inline-flex;align-items:center;gap:8px;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:3px;transition:.2s}
+.link:hover{color:var(--accent);border-color:var(--accent)}
+
+.more-head{display:flex;justify-content:space-between;align-items:end;margin:140px 0 32px;gap:24px;flex-wrap:wrap}
+.more-head h3{font-family:var(--serif);font-weight:400;font-size:44px;line-height:1}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{font:inherit;font-size:14px;padding:9px 16px;border-radius:99px;border:1px solid var(--line);background:none;cursor:pointer;color:var(--ink-2);transition:.2s}
+.filters button:hover{border-color:var(--ink)}
+.filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 28px}
+.card{display:block;transition:opacity .3s}
+.card.hide{display:none}
+.card .shot{aspect-ratio:4/3;border-radius:12px}
+.card .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;gap:12px}
+.card h4{font-size:18px;font-weight:500}
+.card .meta .mono{color:var(--ink-3);font-size:11px;white-space:nowrap}
+.card p{font-size:15px;color:var(--ink-2);margin-top:6px;text-wrap:pretty}
+
+/* EXPERIENCE */
+.timeline{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:200px 1fr 1fr 72px;gap:40px;padding:32px 0;border-bottom:1px solid var(--line);align-items:center;transition:background .3s}
+.row:hover{background:var(--card)}
+.row .when{font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+.row .when .now{display:inline-block;margin-top:6px;font-size:11px;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
+.row h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.4vw,34px);line-height:1.1}
+.row .org{color:var(--ink-2);font-size:15px}
+.row .org small{display:block;color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;margin-top:4px}
+.row .logo-box{width:72px;height:72px;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px}
+.row .logo-box img{max-height:100%;object-fit:contain}
+.row .logo-box.empty{background:none;border-style:dashed}
+
+.edu{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.edu article{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;min-height:280px}
+.edu .when{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.edu h3{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.08;margin:auto 0 14px;padding-top:40px}
+.edu p{font-size:14px;color:var(--ink-2)}
+.edu article.cur{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.edu article.cur p,.edu article.cur .when{color:#a39d92}
+
+/* CONTACT */
+.contact{background:var(--accent);color:#fff;padding:clamp(80px,12vw,160px) 0 0}
+.contact .mono{opacity:.75}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(56px,10vw,160px);line-height:.9;letter-spacing:-.02em;margin:24px 0 56px}
+.mail{display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap}
+.mail a{font-family:var(--serif);font-size:clamp(28px,4vw,56px);border-bottom:2px solid rgba(255,255,255,.5);line-height:1.1;transition:.2s}
+.mail a:hover{border-color:#fff}
+.copy{font:inherit;font-size:13px;padding:10px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.5);background:none;color:#fff;cursor:pointer;transition:.2s}
+.copy:hover{background:#fff;color:var(--accent)}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:88px;padding:40px 0;border-top:1px solid rgba(255,255,255,.3)}
+.contact-grid .mono{display:block;margin-bottom:10px}
+.contact-grid p,.contact-grid a{font-size:17px;display:block}
+.contact-grid a:hover{text-decoration:underline}
+footer{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-top:1px solid rgba(255,255,255,.3);font-size:13px;gap:16px;flex-wrap:wrap}
+footer img{height:22px}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media (max-width:1080px){
+  .nav ul{position:fixed;top:68px;left:0;right:0;flex-direction:column;background:var(--paper);padding:16px var(--pad) 28px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:transform .35s;z-index:-1}
+  .nav ul.open{transform:none}
+  .nav ul a{font-size:20px;padding:12px 0;border-radius:0;font-family:var(--serif)}
+  .nav ul a.active{background:none;color:var(--accent)}
+  .burger{display:block}
+  .nav-cta{display:none}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .edu{grid-template-columns:repeat(2,1fr)}
+  .focus{grid-template-columns:repeat(2,1fr);gap:0 24px}
+  .row{grid-template-columns:160px 1fr 1fr;gap:24px}
+  .row .logo-box{display:none}
+}
+@media (max-width:820px){
+  body{font-size:16px}
+  .hero-grid{grid-template-columns:1fr}
+  .portrait{max-width:380px;margin:0 auto;width:100%}
+  .portrait .t1{left:0}.portrait .t2{right:0}
+  .hero-foot{grid-template-columns:1fr 1fr}
+  .hero-foot div{border-right:0;padding-left:0!important;border-bottom:1px solid var(--line)}
+  .sec-head,.certs{grid-template-columns:1fr;gap:12px}
+  .indent{margin-left:0}
+  .about-cols{grid-template-columns:1fr;gap:20px}
+  .skills{grid-template-columns:1fr}
+  .skill-col{padding:28px 0!important;border-right:0;border-bottom:1px solid #3a3631}
+  .feat,.feat:nth-child(even){grid-template-columns:1fr}
+  .feat:nth-child(even) .shot{order:0}
+  .grid{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;gap:8px}
+  .edu{grid-template-columns:1fr}
+  .edu article{min-height:0}
+  .contact-grid{grid-template-columns:1fr;gap:28px}
+  .focus{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.hero h1 .ln span{transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">Gloire<i>.</i>JB</a>
+    <ul id="menu">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#experience">Expériences</a></li>
+      <li><a href="#formations">Formations</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Me contacter</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top" data-screen-label="01 Hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status"><b></b>Ouvert aux opportunités · Libreville</span>
+      <h1><span class="ln"><span>Gloire JB</span></span><span class="ln"><span><em>NNANG</em></span></span></h1>
+      <p class="lede">Informaticien. Je conçois des <strong>solutions numériques fiables et sécurisées</strong>, du développement logiciel à l'administration des systèmes d'information, en passant par la data et la cybersécurité.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-dark">Voir mes réalisations <span class="arr">→</span></a>
+        <a href="https://github.com/nnangassejb10" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <img src="images/jb10.png" alt="Portrait de Gloire JB NNANG">
+      <span class="tag t1">Dev · Data · Sécu</span>
+      <span class="tag t2">Gabon‑SIS</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="hero-foot">
+      <div><span class="mono">Actuellement</span><p>Informaticien, Hôpital Sino‑Gabonais</p></div>
+      <div><span class="mono">Études</span><p>Master 1 Sécurité Informatique, IAI</p></div>
+      <div><span class="mono">Diplôme</span><p>Génie Logiciel & SI, Polytech Intl</p></div>
+      <div><span class="mono">Basé à</span><p>Libreville, Gabon</p></div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="block" id="about" data-screen-label="02 À propos">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="mono">01 — À propos</span><h2>Comprendre le problème <em>avant</em> la solution.</h2></div>
+    <div class="indent">
+      <p class="about-text rv">Profil junior IT, je travaille autour du <em>développement logiciel</em> et des <em>environnements de santé numérique</em>, en construisant des outils utiles, fiables et adaptés aux réalités du terrain.</p>
+      <div class="about-cols rv">
+        <p>Au sein du projet eGabon‑SIS, j'ai manipulé et accompagné plusieurs solutions métiers. Cette expérience m'a donné de solides bases en analyse de données, pour comprendre, exploiter et valoriser les informations issues des systèmes.</p>
+        <p>En parallèle, j'approfondis la cybersécurité par la pratique et la formation, avec un Master en Sécurité Informatique. J'apprends en continu et j'aime les problèmes concrets.</p>
+      </div>
+      <div class="focus rv">
+        <div><span class="n">01</span><h3>Développement logiciel</h3><p>Applications web, de l'interface à la base de données.</p></div>
+        <div><span class="n">02</span><h3>Santé numérique</h3><p>Accompagnement de solutions métiers hospitalières.</p></div>
+        <div><span class="n">03</span><h3>Analyse de données</h3><p>Exploiter et valoriser les données des systèmes.</p></div>
+        <div><span class="n">04</span><h3>Cybersécurité</h3><p>Réseaux, administration et sécurisation des SI.</p></div>
+        <div><span class="n">05</span><h3>Intelligence artificielle</h3><p>Development et déploiement de modèles d'apprentissage automatique.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="block dark" id="skills" data-screen-label="03 Compétences">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="mono">02 — Compétences</span><h2>Outils & <em>technologies.</em></h2></div>
+    <div class="skills rv">
+      <div class="skill-col"><span class="mono">Langages</span><h3>Programmation</h3>
+        <div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">Python</span><span class="chip">Java</span><span class="chip">C</span><span class="chip">C++</span></div></div>
+      <div class="skill-col"><span class="mono">Web</span><h3>Front & back</h3>
+        <div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Django</span><span class="chip">Tailwind CSS</span><span class="chip">shadcn/ui</span><span class="chip">Vite</span><span class="chip">HTML5</span><span class="chip">CSS3</span></div></div>
+      <div class="skill-col"><span class="mono">Data & outils</span><h3>Données</h3>
+        <div class="chips"><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">Supabase</span><span class="chip">Git & GitHub</span><span class="chip">Vercel</span></div></div>
+    </div>
+    <div class="certs rv">
+      <span class="mono">Certifications · Credly</span>
+      <div class="cert-row">
+        <div class="badge"><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="665cf480-4e10-4606-941a-56912a5b1b70" data-share-badge-host="https://www.credly.com"></div></div>
+        <div class="badge"><div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="1d44bcd7-3002-4174-9d68-a7264a80ba81" data-share-badge-host="https://www.credly.com"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="block" id="projects" data-screen-label="04 Projets">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="mono">03 — Projets</span><h2>Réalisations <em>choisies.</em></h2></div>
+
+    <div class="featured">
+      <article class="feat rv">
+        <a class="shot" href="https://h-pital-direct.vercel.app/" target="_blank" rel="noopener"><img src="images/hopital.png" alt="Tableau de bord de prise de rendez-vous médicale"><span class="visit">Voir le site ↗</span></a>
+        <div>
+          <span class="idx">01 / Santé numérique</span>
+          <h3>Hôpital Direct</h3>
+          <p>Plateforme complète de prise de rendez-vous médicale : réservation en ligne, interface patient intuitive et gestion des dossiers côté établissement.</p>
+          <div class="stack"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>Supabase · PostgreSQL</span></div>
+          <a class="link" href="https://h-pital-direct.vercel.app/" target="_blank" rel="noopener">Ouvrir le projet ↗</a>
+        </div>
+      </article>
+      <article class="feat rv">
+        <a class="shot" href="https://gabon-styles-connect.vercel.app/" target="_blank" rel="noopener"><img src="images/coiffure.png" alt="Plateforme de salon de coiffure"><span class="visit">Voir le site ↗</span></a>
+        <div>
+          <span class="idx">02 / Plateforme SaaS</span>
+          <h3>E‑Coiffure</h3>
+          <p>Solution digitale de gestion de salon de coiffure, avec réservation et paiement en ligne.</p>
+          <div class="stack"><span>React</span><span>shadcn/ui</span><span>Tailwind</span><span>Vite</span></div>
+          <a class="link" href="https://gabon-styles-connect.vercel.app/" target="_blank" rel="noopener">Ouvrir le projet ↗</a>
+        </div>
+      </article>
+      <article class="feat rv">
+        <a class="shot" href="https://shoestyle-hub-1.vercel.app/" target="_blank" rel="noopener"><img src="images/shop.png" alt="Boutique en ligne"><span class="visit">Voir le site ↗</span></a>
+        <div>
+          <span class="idx">03 / E‑commerce</span>
+          <h3>ShoeStyle Hub</h3>
+          <p>Plateforme e‑commerce complète, avec une interface claire et une gestion des commandes.</p>
+          <div class="stack"><span>React</span><span>Tailwind</span><span>shadcn/ui</span><span>Formspree</span></div>
+          <a class="link" href="https://shoestyle-hub-1.vercel.app/" target="_blank" rel="noopener">Ouvrir le projet ↗</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="more-head rv">
+      <h3>Autres projets</h3>
+      <div class="filters" id="filters">
+        <button class="on" data-f="all">Tous</button>
+        <button data-f="site">Sites & landing</button>
+        <button data-f="app">Applications</button>
+        <button data-f="game">Jeux</button>
+      </div>
+    </div>
+    <div class="grid" id="grid">
+      <a class="card rv" data-c="site" href="https://nnangassejb10.github.io/landing_page/" target="_blank" rel="noopener"><div class="shot"><img src="images/landing-page.jpg" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Horizons Gabon</h4><span class="mono">HTML · CSS · JS</span></div><p>Landing page pour valoriser le tourisme local au Gabon.</p></a>
+      <a class="card rv" data-c="site" href="https://nnangassejb10.github.io/Porfolio-Vscode-form/" target="_blank" rel="noopener"><div class="shot"><img src="images/portfolio-vscode.png" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Portfolio VS Code</h4><span class="mono">HTML · CSS · JS</span></div><p>Portfolio personnel dont l'interface reprend l'IDE VS Code.</p></a>
+      <a class="card rv" data-c="app" href="https://nnangassejb10.github.io/Rechercher-utilisateur-github/" target="_blank" rel="noopener"><div class="shot"><img src="images/github-search.png" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Recherche GitHub</h4><span class="mono">API · JS</span></div><p>Recherche et exploration de profils GitHub : dépôts, followers, détails.</p></a>
+      <a class="card rv" data-c="app" href="https://nnangassejb10.github.io/systeme-crud/" target="_blank" rel="noopener"><div class="shot"><img src="images/crud.jpeg" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Système CRUD</h4><span class="mono">HTML · CSS · JS</span></div><p>Créer, lire, modifier, supprimer : une base pour des applications de gestion.</p></a>
+      <a class="card rv" data-c="site" href="https://nnangassejb10.github.io/Split-landing-page/" target="_blank" rel="noopener"><div class="shot"><img src="images/split-landing.png" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Split Landing</h4><span class="mono">HTML · CSS · JS</span></div><p>Page d'accueil divisée, inspirée du jeu vidéo, avec une mise en scène immersive.</p></a>
+      <a class="card rv" data-c="game" href="https://nnangassejb10.github.io/JB-snake/" target="_blank" rel="noopener"><div class="shot"><img src="images/snake.jpg" alt="" loading="lazy"><span class="visit">Jouer ↗</span></div><div class="meta"><h4>Snake Game</h4><span class="mono">Canvas · JS</span></div><p>Le Snake classique, avec un score et un meilleur score sauvegardé.</p></a>
+      <a class="card rv" data-c="app" href="https://nnangassejb10.github.io/Web-Site-Ongulaire/" target="_blank" rel="noopener"><div class="shot"><img src="images/ongulaire.jpeg" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Ongulaire</h4><span class="mono">HTML · CSS · JS</span></div><p>Prise de rendez‑vous simple pour un salon de manucure.</p></a>
+      <a class="card rv" data-c="app" href="https://nnangassejb10.github.io/Javascript-calculator/" target="_blank" rel="noopener"><div class="shot"><img src="images/calculator.png" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Calculatrice d'âge</h4><span class="mono">JS</span></div><p>Calcul de l'âge en années, mois et jours à partir de la date de naissance.</p></a>
+      <a class="card rv" data-c="app" href="https://nnangassejb10.github.io/Horloge-Num-rique-/" target="_blank" rel="noopener"><div class="shot"><img src="images/horloge.jpg" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Horloge numérique</h4><span class="mono">JS</span></div><p>Affichage de l'heure en temps réel, responsive sur tous les écrans.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="block" id="experience" style="padding-top:0" data-screen-label="05 Expériences">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="mono">04 — Expériences</span><h2>Parcours <em>professionnel.</em></h2></div>
+    <div class="timeline">
+      <div class="row rv"><div class="when">Jan 2026 —<br><span class="now">En poste</span></div><h3>Informaticien</h3><div class="org">Service informatique, Hôpital de la Coopération Sino‑Gabonaise, projet eGabon‑SIS<small>Libreville, Gabon</small></div><div class="logo-box"><img src="images/esis.png" alt="eGabon-SIS"></div></div>
+      <div class="row rv"><div class="when">Jan 2026 —<br><span class="now">En cours</span></div><h3>Informaticien & community manager</h3><div class="org">Team Sportif Gabonais, partenaire<small>Libreville, Gabon</small></div><div class="logo-box empty"></div></div>
+      <div class="row rv"><div class="when">Juil — Nov 2025</div><h3>Stagiaire informaticien · développeur</h3><div class="org">Hôpital de la Coopération Sino‑Gabonaise<small>Libreville, Gabon</small></div><div class="logo-box"><img src="images/sino.jpg" alt="Hôpital Sino-Gabonais"></div></div>
+      <div class="row rv"><div class="when">Fév — Août 2024</div><h3>Stagiaire développeur</h3><div class="org">ANINF, Agence Nationale des Infrastructures Numériques et des Fréquences<small>Libreville, Gabon</small></div><div class="logo-box"><img src="images/aninf.png" alt="ANINF"></div></div>
+      <div class="row rv"><div class="when">2021 — 2022</div><h3>Stagiaire informaticien</h3><div class="org">STEG, Société Tunisienne de l'Électricité et du Gaz<small>Tunis, Tunisie</small></div><div class="logo-box"><img src="images/steg.jpg" alt="STEG"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATIONS -->
+<section class="block" id="formations" style="padding-top:0" data-screen-label="06 Formations">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="mono">05 — Formations</span><h2>Parcours <em>académique.</em></h2></div>
+    <div class="edu">
+      <article class="cur rv"><span class="when">En cours</span><h3>Master 1 · Sécurité Informatique</h3><p>Institut Africain d'Informatique (IAI), Libreville</p></article>
+      <article class="rv"><span class="when">2024 — en cours</span><h3>Master en alternance</h3><p>Polytech International, Tunis</p></article>
+      <article class="rv"><span class="when">2024</span><h3>Diplôme en Génie Logiciel & Systèmes d'Information</h3><p>Polytech International, Tunis</p></article>
+      <article class="rv"><span class="when">2020</span><h3>Baccalauréat F3 · Électrotechnique</h3><p>Lycée Technique National Omar Bongo, Libreville</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" data-screen-label="07 Contact">
+  <div class="wrap">
+    <span class="mono">06 — Contact</span>
+    <h2>Travaillons<br>ensemble.</h2>
+    <div class="mail">
+      <a href="mailto:nnanggloirejb@email.com" id="mail">nnanggloirejb@email.com</a>
+      <button class="copy" id="copy">Copier l'adresse</button>
+    </div>
+    <div class="contact-grid">
+      <div><span class="mono">Téléphone</span><a href="tel:+241062088356">+241 06 20 88 356</a><a href="tel:+241074216514">+241 07 42 16 514</a><a href="tel:+21652441268">+216 52 441 268</a></div>
+      <div><span class="mono">En ligne</span><a href="https://github.com/nnangassejb10" target="_blank" rel="noopener">GitHub ↗</a><a href="#" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+      <div><span class="mono">Localisation</span><p>Libreville, Gabon</p><p style="opacity:.75">Disponible en remote</p></div>
+    </div>
+    <footer>
+      <span>© 2026 Gloire JB NNANG</span>
+      <a href="https://user-badge.committers.top/gabon/nnangassejb10" target="_blank" rel="noopener" title="Classement des développeurs au Gabon"><img src="https://user-badge.committers.top/gabon/nnangassejb10.svg" alt="Classement committers.top Gabon"></a>
+      <a href="#top">Retour en haut ↑</a>
+    </footer>
+  </div>
+</section>
+
+<script src="https://cdn.credly.com/assets/utilities/embed.js" async></script>
+<script>
+const nav=document.getElementById('nav'),menu=document.getElementById('menu'),burger=document.getElementById('burger');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
+burger.onclick=()=>{burger.classList.toggle('open');menu.classList.toggle('open')};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{burger.classList.remove('open');menu.classList.remove('open')});
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// active nav
+const links=[...menu.querySelectorAll('a')];
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>so.observe(s));
+
+// filters
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('#grid .card').forEach(c=>{c.classList.toggle('hide',b.dataset.f!=='all'&&c.dataset.c!==b.dataset.f);c.classList.add('in')});
+});
+
+// copy email
+document.getElementById('copy').onclick=function(){
+  navigator.clipboard?.writeText(document.getElementById('mail').textContent).then(()=>{this.textContent='Copié ✓';setTimeout(()=>this.textContent="Copier l'adresse",1800)});
+};
+</script>
+</body>
+</html>
