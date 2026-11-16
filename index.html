@@ -87,7 +87,12 @@ a{color:inherit;text-decoration:none}
 .btn:hover .arr{transform:translateX(4px)}
 .portrait{position:relative;align-self:stretch;display:flex;align-items:flex-end;justify-content:center}
 .portrait::before{content:"";position:absolute;bottom:0;left:8%;right:8%;height:78%;border-radius:999px 999px 0 0;background:var(--paper-2)}
-.portrait img{position:relative;width:100%;max-width:460px;mix-blend-mode:multiply;filter:contrast(1.03)}
+.portrait-carousel{position:relative;width:100%;max-width:460px;aspect-ratio:497/502;overflow:hidden}
+.portrait-carousel img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;border-radius:999px 999px 0 0;mix-blend-mode:multiply;filter:contrast(1.03)}
+.portrait-carousel img:first-child{animation:portrait-slide-first 8s ease-in-out infinite}
+.portrait-carousel img:last-child{transform:translateX(100%);animation:portrait-slide-second 8s ease-in-out infinite}
+@keyframes portrait-slide-first{0%,45%{transform:translateX(0)}50%,95%{transform:translateX(-100%)}100%{transform:translateX(0)}}
+@keyframes portrait-slide-second{0%,45%{transform:translateX(100%)}50%,95%{transform:translateX(0)}100%{transform:translateX(100%)}}
 .portrait .tag{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:8px;white-space:nowrap}
 .portrait .t1{top:30%;left:-4%}
 .portrait .t2{top:52%;right:-2%}
@@ -251,7 +256,7 @@ footer img{height:22px}
   .contact-grid{grid-template-columns:1fr;gap:28px}
   .focus{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.hero h1 .ln span{transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.hero h1 .ln span{transform:none}.portrait-carousel img:last-child{display:none}}
 </style>
 </head>
 <body>
@@ -286,7 +291,10 @@ footer img{height:22px}
       </div>
     </div>
     <div class="portrait">
-      <img src="images/jb10.png" alt="Portrait de Gloire JB NNANG">
+      <div class="portrait-carousel">
+        <img src="images/jb10.png" alt="Portrait de Gloire JB NNANG">
+        <img src="images/jbb1.jpg" alt="" aria-hidden="true">
+      </div>
       <span class="tag t1">Dev · Data · Sécu</span>
       <span class="tag t2">Gabon‑SIS</span>
     </div>
@@ -402,6 +410,10 @@ footer img{height:22px}
       </div>
     </div>
     <div class="grid" id="grid">
+      <a class="card rv" data-c="site" href="https://rpm-site-web2.vercel.app/" target="_blank" rel="noopener"><div class="shot"><img src="images/rpm1.png" alt="Site du Rassemblement pour la Patrie et la Modernité" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Rassemblement pour la Patrie et la Modernité</h4><span class="mono">Site web</span></div><p>Site web du Rassemblement pour la Patrie et la Modernité.</p></a>
+      <a class="card rv" data-c="site" href="https://coffelbv.vercel.app/" target="_blank" rel="noopener"><div class="shot"><img src="images/cafe1.png" alt="Site de VELORA COFFEE Libreville" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>VELORA COFFEE Libreville</h4><span class="mono">Site web</span></div><p>Site web de VELORA COFFEE à Libreville.</p></a>
+      <a class="card rv" data-c="site" href="https://o-ndsc.vercel.app/" target="_blank" rel="noopener"><div class="shot"><img src="images/ondsc.png" alt="Site de l'Office National de Développement du Sport et de la Culture" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Office National de Développement du Sport et de la Culture</h4><span class="mono">Site web</span></div><p>Site web de l'Office National de Développement du Sport et de la Culture.</p></a>
+      <a class="card rv" data-c="site" href="https://mounana1.vercel.app/" target="_blank" rel="noopener"><div class="shot"><img src="images/mounanafc.png" alt="Site du club Mounana" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Club Mounana</h4><span class="mono">Site web</span></div><p>Site web du club Mounana.</p></a>
       <a class="card rv" data-c="site" href="https://nnangassejb10.github.io/landing_page/" target="_blank" rel="noopener"><div class="shot"><img src="images/landing-page.jpg" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Horizons Gabon</h4><span class="mono">HTML · CSS · JS</span></div><p>Landing page pour valoriser le tourisme local au Gabon.</p></a>
       <a class="card rv" data-c="site" href="https://nnangassejb10.github.io/Porfolio-Vscode-form/" target="_blank" rel="noopener"><div class="shot"><img src="images/portfolio-vscode.png" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Portfolio VS Code</h4><span class="mono">HTML · CSS · JS</span></div><p>Portfolio personnel dont l'interface reprend l'IDE VS Code.</p></a>
       <a class="card rv" data-c="app" href="https://nnangassejb10.github.io/Rechercher-utilisateur-github/" target="_blank" rel="noopener"><div class="shot"><img src="images/github-search.png" alt="" loading="lazy"><span class="visit">Voir ↗</span></div><div class="meta"><h4>Recherche GitHub</h4><span class="mono">API · JS</span></div><p>Recherche et exploration de profils GitHub : dépôts, followers, détails.</p></a>
