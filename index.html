@@ -44,6 +44,26 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1320px;margin:0 auto;padding:0 var(--pad)}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 
+/* CRT INTRO */
+#crt-intro-overlay{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;overflow:hidden;background:#050505;animation:crt-intro-exit 22.6s ease-in forwards}
+#crt-intro-overlay .crt-intro__beam{position:absolute;width:100vw;height:100vh;height:100dvh;background:#fff;box-shadow:0 0 34px 10px rgba(255,255,255,.55);transform:scale(.002,.002);transform-origin:center;animation:crt-intro-beam 1.8s cubic-bezier(.22,.75,.22,1) both}
+#crt-intro-overlay .crt-intro__message{position:relative;z-index:1;max-width:min(90vw,720px);padding:24px;color:#1b1916;font-family:var(--serif);font-size:clamp(22px,4vw,40px);line-height:1.1;text-align:center;text-wrap:balance;opacity:0;animation:crt-intro-message 22.6s ease both}
+@keyframes crt-intro-beam{
+  0%,14%{transform:scale(.002,.002)}
+  40%{transform:scale(1,.002)}
+  78%,100%{transform:scale(1,1)}
+}
+@keyframes crt-intro-message{
+  0%,7.96%{opacity:0}
+  9.73%,98.23%{opacity:1}
+  100%{opacity:0}
+}
+@keyframes crt-intro-exit{
+  0%,98.23%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+@media (prefers-reduced-motion:reduce){#crt-intro-overlay{display:none;animation:none}#crt-intro-overlay .crt-intro__beam{animation:none}}
+
 /* NAV */
 .nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
 .nav.scrolled{background:color-mix(in oklab,var(--paper) 88%,transparent);backdrop-filter:blur(12px);border-color:var(--line)}
@@ -260,6 +280,10 @@ footer img{height:22px}
 </style>
 </head>
 <body>
+  <div id="crt-intro-overlay" aria-hidden="true">
+    <span class="crt-intro__beam"></span>
+    <p class="crt-intro__message">Bienvenue sur le portfolio de Gloire JB NNANG</p>
+  </div>
   <canvas id="bg-3d" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; background-color: var(--paper);"></canvas>
 
 <nav class="nav" id="nav">
@@ -287,6 +311,9 @@ footer img{height:22px}
       <p class="lede">Informaticien. Je conçois des <strong>solutions numériques fiables et sécurisées</strong>, du développement logiciel à l'administration des systèmes d'information, en passant par la data et la cybersécurité.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-dark">Voir mes réalisations <span class="arr">→</span></a>
+        <a href="https://docs.google.com/document/d/19aGzmPKFpC8PnmgSTP1D4o---Y1FZZem/edit?usp=sharing&amp;ouid=108877720611927957281&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Voir mon CV ↗</a>
+        <a href="https://docs.google.com/document/d/19aGzmPKFpC8PnmgSTP1D4o---Y1FZZem/export?format=pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Télécharger mon CV (PDF) ↓</a>
+        <a href="https://github.com/nnangassejb10" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
         <a href="https://github.com/nnangassejb10" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
       </div>
     </div>
@@ -478,6 +505,23 @@ footer img{height:22px}
 <script src="cube-about.js"></script>
  <script type="module" src="script.js"></script>
 <script>
+const crtIntroOverlay=document.getElementById('crt-intro-overlay');
+if(crtIntroOverlay){
+  const removeCrtIntro=()=>{
+    clearTimeout(crtIntroFallback);
+    crtIntroOverlay.remove();
+  };
+  let crtIntroFallback;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    removeCrtIntro();
+  }else{
+    crtIntroOverlay.addEventListener('animationend',event=>{
+      if(event.target===crtIntroOverlay&&event.animationName==='crt-intro-exit')removeCrtIntro();
+    });
+    crtIntroFallback=setTimeout(removeCrtIntro,2500);
+  }
+}
+
 const nav=document.getElementById('nav'),menu=document.getElementById('menu'),burger=document.getElementById('burger');
 const themeToggle=document.getElementById('theme-toggle');
 themeToggle.onclick=()=>{
